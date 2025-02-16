@@ -5,7 +5,7 @@ from weasyprint import HTML
 from pathlib import Path
 from bs4 import BeautifulSoup, Comment
 
-class CrawlerFactoryClass():
+class ScraperFactoryClass():
    
    default_css = """
       @page {

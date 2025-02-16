@@ -1,4 +1,4 @@
-from utils.scraper.CrawlerLinkDiffWikiNews import CrawlerLinkDiffWikiNews
+from utils.scraper.ScraperLinkDiffWikiNews import ScraperLinkDiffWikiNews
 from utils.notification.DiscordWebhook import DiscordWebHook
 from utils.logger.richlogger import log, countdown
 import sys
@@ -11,7 +11,7 @@ def do_loop(webhook_url=None):
   
   while True:
     
-    crawler = CrawlerLinkDiffWikiNews("WikiPoliticsMon", url="https://en.wikipedia.org/wiki/Portal:Current_events")
+    scraper = ScraperLinkDiffWikiNews("WikiPoliticsMon", url="https://en.wikipedia.org/wiki/Portal:Current_events")
     if webhook_url is None:
       notification = DiscordWebHook(webhook_key="wikipolitics_webhook")
     else:
@@ -20,13 +20,13 @@ def do_loop(webhook_url=None):
     if i % 36 == 0:
       notification.do_health_checkin()
     
-    new_df = crawler.do_run()
+    new_df = scraper.do_run()
 
     if len(new_df) > 0:
       
       embed = {
         "author": {
-          "name": "Wiki Politics Crawler Bot",
+          "name": "Wiki Politics Scraper Bot",
         },
         "title": "New Links Hit Wiki Politics",
         "url": "https://en.wikipedia.org/wiki/Portal:Current_events",
@@ -41,7 +41,7 @@ def do_loop(webhook_url=None):
       }
       
       notification.do_push_notification(embed=embed)
-      export_file = crawler.export_to_pdf()
+      export_file = scraper.export_to_pdf()
       notification.do_push_file_notification(export_file)
         
     else:

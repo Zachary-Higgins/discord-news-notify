@@ -1,9 +1,9 @@
 import pandas as pd
 import os
 from io import StringIO
-from .CrawlerFactoryClass import CrawlerFactoryClass
+from .ScraperFactoryClass import ScraperFactoryClass
 
-class CrawlerLinkDiff(CrawlerFactoryClass):
+class ScraperLinkDiff(ScraperFactoryClass):
    
    def __init__(self, file_name, *args, **kwargs):
       super().__init__(*args, **kwargs)

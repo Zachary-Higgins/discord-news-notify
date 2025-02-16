@@ -1,8 +1,6 @@
-import pandas as pd
-import os
-from .CrawlerLinkDiff import CrawlerLinkDiff
+from .ScraperLinkDiff import ScraperLinkDiff
 
-class CrawlerLinkDiffWikiNews(CrawlerLinkDiff):
+class ScraperLinkDiffWikiNews(ScraperLinkDiff):
    
    def __init__(self, *args, **kwargs):
       super().__init__(*args, **kwargs)
