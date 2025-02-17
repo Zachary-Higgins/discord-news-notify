@@ -18,10 +18,20 @@ This is a project I created to test whether it could be a viable way to monitor 
 
 ## Usage
 - Refer to the following link for creating a discord webhook: https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks
-- There are currently 2 crawlers setup (more if I didn't update the readme yet.)
-- #### Webhooks as Command Line Parameters
-   - drudge_mon -> `python ./drudge_mon.py "<insert webhook URL>"`
-   - wiki_politics_mon -> `python ./wiki_politics_mon.py "<insert webhook URL>"`
-- #### Webhooks as Environment Parameters
-   - Webhook must exist as a environment param (useful for docker installations). This isn't fully fleshed out so plan on reading some python to determine the appropriate environment variable names (for now).
-   - You can start with the drudge_mon.py or wiki_politics_mon.py.
+- Run monitor.py to see list of available monitors.
+- #### Webhook URL Configurations
+   - Webhooks must be stored as environment parameters (eventually these will be docker containers... probably...)
+   - Refer to configs.py for which webhooks must be configured. Search for "webhook_env_key"
+   - The value of the that config param is your environment param. Assign the webook URL to that.
+      - bat `set wikipolitics_webhook=https://discord...`
+      - powershell `$env:wikipolitics_webhook="https://discord..."`
+      - sh `export wikipolitics_webhook="https://discord..."`
+- #### Running The Monitor
+   -  **IMPORTANT:** Make sure your environment params are set. If I did a bad job explaining, open a github issue. I check them.
+   -  ```python ./monitor.py```
+   - OR ```python ./monitor.py Drudge``` (non-interactive)
+
+## TODO
+- Document configs.py
+- Docker contains?
+- More generic support...
