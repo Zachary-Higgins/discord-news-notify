@@ -29,4 +29,4 @@ def countdown(seconds: int):
          progress.update(task, completed=seconds - i)
          time.sleep(1)
       progress.update(task, completed=seconds)
-      console.print("[bold green]✅ Countdown complete![/bold green]")
+   console.print("[bold green]✅ Countdown complete![/bold green]")
