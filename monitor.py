@@ -1,6 +1,7 @@
 from utils.notification.DiscordWebhook import DiscordWebHook
 from utils.logger.richlogger import log, countdown
 from configs import configs
+import copy
 import os
 import sys
 
@@ -14,7 +15,7 @@ def get_webhook_url(config):
 def do_healthcheck(config):
    log.info("Sending health check.")
    webhook_url = get_webhook_url(config)
-   notification_hc = config['notification_config'].copy()
+   notification_hc = copy.deepcopy(config['notification_config'])
    notification = DiscordWebHook(None, webhook_url=webhook_url)
    notification.do_health_checkin(notification_hc)
    log.info("Health check complete.")
@@ -28,7 +29,7 @@ def do_run(config):
    webhook_url = get_webhook_url(config)
    scraper = monitor_class(monitor_name, monitor_url)
    notification = DiscordWebHook(None, webhook_url=webhook_url)
-   payload = config['notification_config'].copy()
+   payload = copy.deepcopy(config['notification_config'])
    
    new_df = scraper.do_run()
    
