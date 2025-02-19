@@ -15,10 +15,10 @@ class ScraperFactoryClass():
    """
    
    def __init__(self, url, parser="html.parser"):
-      response = requests.get(url)
-      self.parser = parser
-      self.soup = BeautifulSoup(response.text, self.parser)
-      self._remove_scripts()
+      with requests.get(url) as response:
+         self.parser = parser
+         self.soup = BeautifulSoup(response.text, self.parser)
+         self._remove_scripts()
       
    def do_run(self):
       raise Exception("Must be called from derived class (not super).")
