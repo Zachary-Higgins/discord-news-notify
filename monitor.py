@@ -7,9 +7,9 @@ import sys
 
 
 def get_webhook_url(config):
-	webhook_url = os.environ.get(config['webhook_env_key'], None)
-	assert webhook_url is not None, f"Environment parameter not set. Webhook as arg not implemented yet. Please set {config['webhook_env_key']}."
-	return webhook_url
+   webhook_url = os.environ.get(config['webhook_env_key'], None)
+   assert webhook_url is not None, f"Environment parameter not set. Webhook as arg not implemented yet. Please set {config['webhook_env_key']}."
+   return webhook_url
 
 
 def do_healthcheck(config):
@@ -35,11 +35,11 @@ def do_run(config):
    
    if len(new_df) > 0:
       fields = [
-			{
-				"name": row['Link Text'],
-				"value": row['URL']
-			} for index, row in new_df.iterrows()
-		]
+         {
+            "name": row['Link Text'],
+            "value": row['URL']
+         } for index, row in new_df.iterrows()
+      ]
       
       payload['embeds'][0]['fields'] = fields
       
@@ -52,24 +52,27 @@ def do_run(config):
       log.warning("Dataframe results were empty. Skipping.")
       
    log.info("Loop complete.")
-			
+         
 
 def do_loop(key):
-	i = 0
-	config = configs[key]
-	log.info("Configuration loaded.")
-		
-	while True:
-		
-		loop_healthcheck = config['loop_healthcheck']
-		if i % loop_healthcheck == 0:
-			do_healthcheck(config)
-		
-		do_run(config)
-		
-		i = i+1
+   i = 0
+   config = configs[key]
+   log.info("Configuration loaded.")
+      
+   while True:
+      
+      loop_healthcheck = config['loop_healthcheck']
+      if i % loop_healthcheck == 0:
+         do_healthcheck(config)
+      
+      try:
+         do_run(config)
+      except Exception as e:
+         log.error(e)
+
+      i = i+1
   
-		countdown(config['loop_delay'])
+      countdown(config['loop_delay'])
   
   
 if __name__ == '__main__':
